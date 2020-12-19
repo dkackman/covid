@@ -38,14 +38,18 @@ def Measure(cases, deaths):
 
 def Predict(model, dates, cases, deaths, offset):
     # create a new date series for the range over which we will predict
-    minDate = np.amin(dates) + np.timedelta64(offset, 'D')
+    minDate = np.amin(dates) # - np.timedelta64(offset, 'D')
     maxDate = np.amax(dates) + np.timedelta64(offset + 1, 'D')
+
     projected_dates = pd.Series([date for date in np.arange(minDate, maxDate, dt.timedelta(days=1))])
-    projected_deaths = model.predict(cases)
+    predicted_deaths = model.predict(cases)
 
     # pad deaths with enough nan values to make the smae lenght as the projection
     empty = np.empty(offset)
     empty[:] = np.nan
-    #deaths_ = deaths.append(pd.Series(empty))
+    emptySeries = pd.Series(empty)
 
-    return projected_dates, deaths, projected_deaths
+    actual_deaths = deaths.append(emptySeries)
+    projected_deaths = emptySeries.append(pd.Series(predicted_deaths))
+
+    return projected_dates, actual_deaths, projected_deaths
