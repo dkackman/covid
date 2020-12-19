@@ -10,5 +10,8 @@ The assumption is that the number of deaths today is a function of the number of
 
 ### Daily
 
+![daily](daily.png)
 
 ### Smoothed
+
+![smoothed](smoothed.png)
