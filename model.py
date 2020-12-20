@@ -4,53 +4,43 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 
+from collections import namedtuple
 
-def FindBestModelOffset(new_cases, new_deaths, max_offset):
-    bestModel = None
-    bestR2 = 0.0
-    bestPredictions = None
-    bestDeaths = None
-    bestOffset = 0
 
-    # loop through the offsets for the one where cases best correlate to future deaths
+Model = namedtuple('Model', 'linearModel r2 actuals predictions offset')
+Prediction = namedtuple('Prediction', 'dates actuals predictions')
+
+
+def BestFitModel(new_cases, new_deaths, max_offset) -> Model:
+    best = Model(None, 0.0, None, None, 0)
+
+    # find an offset, in days, where cases best correlate to future deaths
     for offset in range(1, max_offset):
         cases = new_cases[-0:-offset]
         deaths = new_deaths[offset:]
 
-        model, r2, predictions = Model(cases, deaths)
-        if (r2 > bestR2):
-            bestModel = model
-            bestR2 = r2
-            bestPredictions = predictions
-            bestDeaths = deaths
-            bestOffset = offset
+        model = LinearRegression().fit(cases, deaths)
+        predictions = model.predict(cases)
+        r2 = metrics.r2_score(deaths, predictions)
+        if (r2 > best.r2):
+            best = Model(model, r2, deaths, predictions, offset)
 
-    return bestModel, bestR2, bestPredictions, bestDeaths, bestOffset
+    return best
 
 
-def Model(cases, deaths):
-    model = LinearRegression()
-    model.fit(cases, deaths)
-    predictions = model.predict(cases)
-    r2 = metrics.r2_score(deaths, predictions)
-
-    return model, r2, predictions
-
-
-def Predict(model, dates, cases, deaths, offset):
+def Predict(model: Model, dates, cases, deaths) -> Prediction:
     # create a new date series for the range over which we will predict
+    # (it is wider than the source date range by [offset]. that is how far in the future we can predict)
     minDate = np.amin(dates)
-    maxDate = np.amax(dates) + np.timedelta64(offset + 1, 'D')
+    maxDate = np.amax(dates) + np.timedelta64(model.offset + 1, 'D')
 
     projected_dates = pd.Series([date for date in np.arange(minDate, maxDate, dt.timedelta(days=1))])
-    predicted_deaths = model.predict(cases)
 
-    # pad deaths with enough nan values to make the same length as the projection
-    empty = np.empty(offset)
-    empty[:] = np.nan
-    emptySeries = pd.Series(empty)
+    # padding so actuals and predictions can be graphed together within dates
+    padding = pd.Series(np.full(model.offset, np.nan))
+    
+    predicted_deaths = model.linearModel.predict(cases)
+    actual_deaths = deaths.append(padding)
+    projected_deaths = padding.append(pd.Series(predicted_deaths))
 
-    actual_deaths = deaths.append(emptySeries)
-    projected_deaths = emptySeries.append(pd.Series(predicted_deaths))
-
-    return projected_dates, actual_deaths, projected_deaths
+    return Prediction(projected_dates.values, actual_deaths.values, projected_deaths.values)
