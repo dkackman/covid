@@ -1,10 +1,10 @@
 # covid model
 
-Simple analysis and predictions of covid using python, jupyter, and sklearn.
+For the US data, cases discovered today are an accurate predictor of deaths 21-28 days in the future.
 
 ## Rationale
 
-The assumption is that the number of deaths today is a function of the number of cases discovered at some point in the past. Using [The COVID Track Project's](https://covidtracking.com/data) data and a simple linear regression, find the best correlation between past cases and deaths.
+The assumption is that the number of deaths today is a function of the number of cases discovered at some point in the past. Using [The COVID Tracking Project's](https://covidtracking.com/data) data and linear regression, find the best correlation between past cases and deaths at a future date.
 
 ## Result
 
@@ -17,7 +17,3 @@ The assumption is that the number of deaths today is a function of the number of
 
 ![smoothed](smoothed.png)
 ![smoothed comparison](smoothedcomparison.png)
-
-## Conclusion
-
-For the US data set, cases discovered today are an accurate predictor of deaths 21-28 days in the future.
