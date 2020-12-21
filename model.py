@@ -7,11 +7,11 @@ import datetime as dt
 from collections import namedtuple
 
 
-Model = namedtuple('Model', 'linearRegression r2 actuals predictions offset')
+Model = namedtuple('Model', 'linearRegression r2 offset data')
 
 
 def BestFitModel(new_cases, new_deaths, max_offset) -> Model:
-    best = Model(None, 0.0, None, None, 0)
+    best = Model(None, 0.0, 0, None)
 
     # find an offset, in days, where cases best correlate to future deaths
     for offset in range(1, max_offset):
@@ -22,7 +22,7 @@ def BestFitModel(new_cases, new_deaths, max_offset) -> Model:
         predictions = model.predict(cases)
         r2 = metrics.r2_score(deaths, predictions)
         if (r2 > best.r2):
-            best = Model(model, r2, deaths, predictions, offset)
+            best = Model(model, r2, offset, pd.DataFrame({'predicted': predictions, 'actual': deaths}))
 
     return best
 
