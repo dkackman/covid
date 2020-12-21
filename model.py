@@ -33,7 +33,7 @@ def Predict(model: Model, dates, cases, deaths) -> pd.DataFrame:
     minDate = np.amin(dates)
     maxDate = np.amax(dates) + np.timedelta64(model.offset + 1, 'D')
 
-    projected_dates = pd.Series([date for date in np.arange(minDate, maxDate, dt.timedelta(days=1))])
+    projected_dates = [date for date in np.arange(minDate, maxDate, dt.timedelta(days=1))]
 
     # padding so actuals and predictions can be graphed together within dates
     padding = pd.Series(np.full(model.offset, np.nan))
@@ -41,8 +41,9 @@ def Predict(model: Model, dates, cases, deaths) -> pd.DataFrame:
     actual_deaths = deaths.append(padding)
     projected_deaths = padding.append(pd.Series(model.linearRegression.predict(cases)))
 
-    frame = pd.DataFrame({"dates": projected_dates.values, 
+    frame = pd.DataFrame({"dates": projected_dates, 
         "actual": actual_deaths.values, 
         "projected": projected_deaths.values})
 
+    # unpivot the data set for easy graphing
     return frame.melt(id_vars=['dates'], var_name='series', value_name='deaths')        
