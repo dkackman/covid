@@ -16,10 +16,10 @@ The predicted curces below are a function of case rates, but offset by a number 
 
 ### Daily
 
-![daily](daily.png)
 ![daily comparison](dailycomparison.png)
+![daily](daily.png)
 
 ### Smoothed
 
-![smoothed](smoothed.png)
 ![smoothed comparison](smoothedcomparison.png)
+![smoothed](smoothed.png)
