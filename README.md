@@ -8,6 +8,12 @@ The assumption is that the number of deaths today is a function of the number of
 
 ## Result
 
+### Cases
+
+The predicted curces below are a function of case rates, but offset by a number of days.
+
+![cases](cases.png)
+
 ### Daily
 
 ![daily](daily.png)
