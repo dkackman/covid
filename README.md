@@ -1,6 +1,6 @@
 # covid model
 
-For the US data, cases discovered today are an accurate predictor of deaths 21-28 days in the future.
+For the US data, cases reported today are an accurate predictor of deaths 21-28 days in the future.
 
 ## Rationale
 
