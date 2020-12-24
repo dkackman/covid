@@ -8,6 +8,8 @@ The assumption is that the number of deaths today is a function of the number of
 
 ## Result
 
+![deaths](deaths.jpg)
+
 ### Cases
 
 The prediction curves below are a linear function of cases, but offset by a number of days.

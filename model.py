@@ -43,7 +43,7 @@ def Predict(model: Model, dates, cases, deaths) -> pd.DataFrame:
 
     frame = pd.DataFrame({"dates": projected_dates, 
         "actual": actual_deaths.values, 
-        "projected": projected_deaths.values})
+        "projected": projected_deaths.values}, index=projected_dates)
 
     # unpivot the data set for easy graphing
     return frame.melt(id_vars=['dates'], var_name='series', value_name='deaths')        
