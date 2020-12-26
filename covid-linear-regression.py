@@ -57,7 +57,7 @@ fig.set_size_inches(8, 4.5)
 plt.title("cases") 
 #plt.show()
 fig.savefig("cases.png", bbox_inches='tight')
-
+fig.clf()
 
 # In[5]:
 
@@ -74,7 +74,7 @@ ax.yaxis.set_major_formatter(ticker.EngFormatter())
 ax.set_title(fr'$deaths_{{[date]}}={round(model.linearRegression.coef_[0], 3)} \times cases_{{[date-{model.offset}]}} + ${round(model.linearRegression.intercept_, 3)}', fontsize=12)
 
 fig.savefig("daily.png", bbox_inches='tight')
-
+fig.clf()
 
 # In[6]:
 
@@ -93,7 +93,7 @@ fig.suptitle('actual & projected deaths', fontsize=16)
 fig.autofmt_xdate()
 
 fig.savefig("dailycomparison.png", bbox_inches='tight')
-
+fig.clf()
 
 # In[7]:
 
@@ -110,7 +110,7 @@ ax.yaxis.set_major_formatter(ticker.EngFormatter())
 ax.set_title(fr'$deaths_{{[date]}}={round(model.linearRegression.coef_[0], 3)} \times cases_{{[date-{model.offset}]}} + ${round(model.linearRegression.intercept_, 3)}', fontsize=12)
 
 fig.savefig("smoothed.png", bbox_inches='tight')
-
+fig.clf()
 
 # In[8]:
 
@@ -129,7 +129,7 @@ fig.suptitle('actual & projected deaths (smoothed)', fontsize=16)
 fig.autofmt_xdate()
 
 fig.savefig("smoothedcomparison.png", bbox_inches='tight')
-
+fig.clf()
 
 # In[9]:
 
@@ -146,7 +146,7 @@ s = f'There will be about {"{:,}".format(round(round(deaths["deaths"], -1)))} CO
 img = Image.new('RGB', (420, 60))
 ImageDraw.Draw(img).text((10, 10), s, font=ImageFont.truetype("arial.ttf", 18))
 img.save("deaths.jpg")
-img
+
 
 
 # In[ ]:
