@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.dates as mdates
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
-#get_ipython().run_line_magic('matplotlib', 'inline')
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 import seaborn as sns
 sns.set_theme()
