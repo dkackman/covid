@@ -1,3 +1,5 @@
+![deaths](deaths.jpg)
+
 # covid model
 
 For the US data, cases reported today are an accurate predictor of deaths 21-28 days in the future.
@@ -6,22 +8,18 @@ For the US data, cases reported today are an accurate predictor of deaths 21-28 
 
 The assumption is that the number of deaths today is a function of the number of cases discovered at some point in the past. Using [The COVID Tracking Project's](https://covidtracking.com/data) data and linear regression, find the best correlation between past cases and deaths at a future date.
 
-## Result
-
-![deaths](deaths.jpg)
-
-### Cases
+## Cases
 
 The prediction curves below are a linear function of cases, but offset by a number of days.
 
 ![cases](cases.png)
 
-### Daily
+## Daily
 
 ![daily comparison](dailycomparison.png)
 ![daily](daily.png)
 
-### Smoothed
+## Smoothed
 
 ![smoothed comparison](smoothedcomparison.png)
 ![smoothed](smoothed.png)
