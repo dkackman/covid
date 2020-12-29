@@ -1,5 +1,7 @@
 ![deaths](deaths.jpg)
 
+![previous-deaths](previous-deaths.jpg)
+
 # covid model
 
 For the US data, cases reported today are an accurate predictor of deaths 21-28 days in the future.
