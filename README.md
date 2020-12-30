@@ -18,10 +18,10 @@ The prediction curves below are a linear function of cases, but offset by a numb
 
 ## Daily
 
-<img src="dailycomparison.png" width="500" height="327">
-<img src="daily.png" width="302" height="302">
+<img src="dailycomparison.png" width="66%">
+<img src="daily.png" width="302" width="33%">
 
 ## Smoothed
 
-<img src="smoothedcomparison.png" width="500" height="327">
-<img src="smoothed.png" width="302" height="302">
+<img src="smoothedcomparison.png" width="66%">
+<img src="smoothed.png" width="33%">
