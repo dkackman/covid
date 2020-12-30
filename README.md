@@ -19,9 +19,9 @@ The prediction curves below are a linear function of cases, but offset by a numb
 ## Daily
 
 ![daily comparison](dailycomparison.png)
-![daily](daily.png)
+![daily](daily.png){:height="305px" width="305px"}
 
 ## Smoothed
 
 ![smoothed comparison](smoothedcomparison.png)
-![smoothed](smoothed.png)
+![smoothed](smoothed.png){:height="305px" width="305px"}
