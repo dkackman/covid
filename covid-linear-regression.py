@@ -65,8 +65,8 @@ fig.clf()
 model = BestFitModel(df[['new_cases']], df['new_deaths'], MAX_OFFSET)
 
 fig = sns.lmplot(data= model.data, x="actual", y="predicted").fig
-fig.suptitle(rf"$r^2={round(model.r2,3)}$", fontsize=12)
 fig.set_size_inches(3.75, 3.75)
+fig.suptitle(rf"$r^2={round(model.r2,3)}$", fontsize=12)
 
 ax = fig.axes[0]
 ax.xaxis.set_major_formatter(ticker.EngFormatter())
@@ -82,13 +82,14 @@ fig.clf()
 data = Predict(model, df["date"], df[['new_cases']], df['new_deaths'])
 
 ax = sns.lineplot(data=data, x="dates", y="deaths", hue="series")
+fig = ax.figure
+fig.set_size_inches(8, 4.5)
+
 ax.set_title(f'({model.offset} days between cases and deaths)', fontsize=12)
 ax.xaxis.set_major_locator(mdates.MonthLocator())
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
 ax.yaxis.set_major_formatter(ticker.EngFormatter())
 
-fig = ax.figure
-fig.set_size_inches(8, 4.5)
 fig.suptitle('actual & projected deaths', fontsize=16)
 fig.autofmt_xdate()
 
@@ -101,8 +102,8 @@ fig.clf()
 model = BestFitModel(df[['new_cases_smoothed']], df['new_deaths_smoothed'], MAX_OFFSET)
 
 fig = sns.lmplot(data= model.data, x="actual", y="predicted").fig
-fig.suptitle(rf"$r^2={round(model.r2,3)}$", fontsize=12)
 fig.set_size_inches(3.75, 3.75)
+fig.suptitle(rf"$r^2={round(model.r2,3)}$", fontsize=12)
 
 ax = fig.axes[0]
 ax.xaxis.set_major_formatter(ticker.EngFormatter())
@@ -118,13 +119,14 @@ fig.clf()
 data = Predict(model, df["date"], df[['new_cases_smoothed']], df['new_deaths_smoothed'])
 
 ax = sns.lineplot(data=data, x="dates", y="deaths", hue="series")
+fig = ax.figure
+fig.set_size_inches(8, 4.5)
+
 ax.set_title(f'({model.offset} days between cases and deaths)', fontsize=12)
 ax.xaxis.set_major_locator(mdates.MonthLocator())
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
 ax.yaxis.set_major_formatter(ticker.EngFormatter())
 
-fig = ax.figure
-fig.set_size_inches(8, 4.5)
 fig.suptitle('actual & projected deaths (smoothed)', fontsize=16)
 fig.autofmt_xdate()
 
@@ -146,11 +148,18 @@ s = f'There will be about {"{:,}".format(round(round(deaths["deaths"], -1)))} CO
 img = Image.new('RGB', (420, 60))
 ImageDraw.Draw(img).text((10, 10), s, font=ImageFont.truetype("arial.ttf", 18))
 img.save("deaths.jpg")
-
+img
 
 
 # In[ ]:
+min = today - np.timedelta64(model.offset,'D')
+yesterday = today - np.timedelta64(1,'D')
+deaths = data.query("series == 'projected' & dates >= @min & dates < @yesterday").sum()
+s = f'There were {"{:,}".format(round(deaths["deaths"]))} COVID deaths in the {country}\nbetween {min.astype(date).strftime("%B %d")} and {yesterday.astype(date).strftime("%B %d")}.'
 
-
+img = Image.new('RGB', (420, 60))
+ImageDraw.Draw(img).text((10, 10), s, font=ImageFont.truetype("arial.ttf", 18))
+img.save("previous-deaths.jpg")
+img
 
 
