@@ -16,12 +16,10 @@ The prediction curves below are a linear function of cases, but offset by a numb
 
 ![cases](cases.png)
 
-## Daily
+## Deaths
 
 <img src="dailycomparison.png" width="66%">
 <img src="daily.png" width="32%">
-
-## Smoothed
 
 <img src="smoothedcomparison.png" width="66%">
 <img src="smoothed.png" width="32%">
