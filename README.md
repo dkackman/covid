@@ -1,7 +1,9 @@
 When this number
+
 ![deaths](deaths.jpg)
 
 is less than this number
+
 ![previous-deaths](previous-deaths.jpg)
 
 we will have started trending in the right direction.
