@@ -9,6 +9,12 @@ from collections import namedtuple
 
 Model = namedtuple('Model', 'linearRegression r2 offset data')
 
+def Regress(independent, dependent):
+    model = LinearRegression().fit(independent, dependent)
+    predictions = model.predict(independent)
+    r2 = metrics.r2_score(dependent, predictions)
+    return model, predictions, r2
+
 
 def BestFitModel(new_cases, new_deaths, max_offset) -> Model:
     best = Model(None, 0.0, 0, None)
